@@ -371,3 +371,6 @@ div.leaflet-popup-content-wrapper {
 div.leaflet-popup-content{
 	width: 409px!Important;
 }
+#serpub {
+	visibility: hidden;
+}

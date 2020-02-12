@@ -317,7 +317,7 @@ wms.Overlay = L.Layer.extend({
         'opacity': 1,
         'isBack': false,
         'minZoom': 0,
-        'maxZoom': 18
+        'maxZoom': 20
     },
 
     'initialize': function(url, options) {

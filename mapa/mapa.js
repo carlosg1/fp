@@ -14,8 +14,8 @@ $(document).ready(function() {
     map = L.map('map', {
         zoomControl: true,
         inertia: true,
-        maxZoom:18,
-        minZoom:1,
+        maxZoom: 18,
+        minZoom: 1,
         crs: L.CRS.EPSG900913,
         center: [-27.48483,-58.81393],
         zoom: 18
