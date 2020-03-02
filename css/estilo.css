@@ -364,13 +364,28 @@ div.topBanner span img {
 	-moz-box-shadow: 0px 0px 35px 0px rgba(0,0,0,0.52);
 	box-shadow: 0px 0px 35px 0px rgba(0,0,0,0.52);
 }
-
-div.leaflet-popup-content-wrapper {
-	width: 440px!Important;
+.barra-herramienta {
+	background: white;
+	left: 332px;
+	opacity: 0.6;
+	position: absolute;
+	top: 13px;
+	width: 250px;
+	z-index: 4000;
 }
-div.leaflet-popup-content{
-	width: 409px!Important;
+.barra-herramienta .bh-cuerpo {
+	margin: 4px;
 }
-#serpub {
-	visibility: hidden;
+.barra-herramienta .bh-cuerpo .bh-imagen {
+	cursor: pointer;
 }
+.barra-herramienta .bh-cuerpo #lblUsuario, #nombreUsuario {
+	font-family: 'Lato';
+	font-size: 10pt;
+}
+.sombra-derecha {
+	-webkit-box-shadow: 0px 0px 35px 0px rgba(0,0,0,0.52);
+	-moz-box-shadow: 0px 0px 35px 0px rgba(0,0,0,0.52);
+	box-shadow: 0px 0px 35px 0px rgba(0,0,0,0.52);
+}
+.sin-opacidad { opacity: 1; }

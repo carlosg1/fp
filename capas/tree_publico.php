@@ -59,6 +59,7 @@
                             <li id="sumideroPendiente" data-jstree='{"icon": "images/icon/sumidero_pendiente.png"}'>Pendiente</li>
                         </ul>
                     </li>
+                    <li id="vw_plan_hidrico_ubicacion_camion" data-jstree='{"icon": "images/icon/camion-fp.svg"}'>Ubicaci&oacute;n Cami&oacute;n</li>
                 </ul>
             </li>
         </ul>

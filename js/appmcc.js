@@ -15,6 +15,7 @@ let nodo_pub_selec, nodo_pub_anterior = undefined;
 let capas = Array();
 let apagarCapaBarrio = false;
 
+
 // variable que controla que se va a buscar
 // segun si se selecciono o no, algunas opciones
 // extras
@@ -183,6 +184,10 @@ $(document).ready(function() {
 
                     case 'rehabilitacionDesaguesPluviales':
                         map.addLayer(lyr_man_pluv);
+                        break;
+
+                    case 'vw_plan_hidrico_ubicacion_camion':
+                        map.addLayer(vw_plan_hidrico_ubicacion_camion);
                         break;
 
                     case 'rehabilitacionSumideros':
@@ -577,6 +582,10 @@ $(document).ready(function() {
 
                     case 'rehabilitacionDesaguesPluviales':
                         lyr_man_pluv.remove();
+                        break;
+
+                    case 'vw_plan_hidrico_ubicacion_camion':
+                        vw_plan_hidrico_ubicacion_camion.remove();
                         break;
 
                     case 'rehabilitacionSumideros':
@@ -1120,7 +1129,60 @@ $(document).ready(function() {
         }
     });
 
-    
+    // log de usuario
+    $("#btnAceptar").click(function(e){
+        
+        $.ajax({
+            data: 'usuario=' + $("#logUsuario").val() + '&clave=' + $("#logClave").val(),
+            url: "log_usuario.php",
+            type: "POST",
+
+            success: function(response){
+
+                var r = response.split('|');
+
+                if(r[0] == '0'){
+
+                    usuario = r[1];
+
+                    $("#nombreUsuario").html(r[2]);
+
+                    alert(r[2] + ' ha ingresado correctamente, ahora ya puede editar el mapa.');
+
+                    $("#logUsuario").val('');
+
+                    $("#logClave").val('');
+
+                    $("#modalLogin").modal('hide');
+
+                    return true;
+
+                } else {
+
+                    alert('no se pudo logear');
+
+                    return false;
+                }
+            
+                return false;
+
+            },
+
+            error: function(response){
+
+                var r = response.split('1');
+            
+                alert('Fallo ' + response[1]);
+
+            },
+
+            async: false, // La petición es síncrona
+            cache: false // No queremos usar la caché del navegador
+        });
+
+
+        return false;
+    });
 
 });
 

@@ -1,5 +1,5 @@
 <?php 
-    mb_internal_encoding("UTF-8");
+mb_internal_encoding("UTF-8");
 ?><!doctype html>
 <html lang="en">
     <head>
@@ -13,29 +13,23 @@
         <link rel="stylesheet" href="css/Control.OSMGeocoder.css">
         <link rel="stylesheet" href="css/leaflet-measure.css">
 
-        <!-- Font Awesome -->
-        <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">  -->
-
-        <!-- Bootstrap CSS -->
-        <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
-
         <!-- Bootstrap core CSS -->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
-
-        <!-- Bootstrap core CSS -->
-        <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"> -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
 
         <!-- Material Design Bootstrap -->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.11.0/css/mdb.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.11.0/css/mdb.min.css">
 
         <!-- JQuery -->
         <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-        <!-- script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script -->
-        <!-- link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/humanity/jquery-ui.css" -->
-        <!-- link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/start/jquery-ui.css" -->
 
         <!-- Jstree -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css">
+
+        <!-- Google Web Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Lato|Roboto&display=swap" rel="stylesheet">
+
+        <!-- Font-awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
         <link rel="stylesheet" href="css/estilo.css"> 
 
@@ -52,19 +46,23 @@
         <script src="js/leaflet.wms.js"></script>
         <script src="js/Control.OSMGeocoder.js"></script>
         <script src="js/leaflet-measure.js"></script>
-
+        
         <!-- JQuery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-        <!-- Jquery UI -->
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-
         <!-- Bootstrap tooltips -->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+
         <!-- Bootstrap core JavaScript -->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+        
         <!-- MDB core JavaScript -->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.11.0/js/mdb.min.js"></script>
+
+        
+        <!-- Jquery UI -->
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 
         <!-- Jstree -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
@@ -102,14 +100,13 @@
 
             ?>);
         </script>
+        <!-- // leo camiones -->
 
         <script src="mapa/mapa.js"></script>
         <script src="js/mostrar-infowindow.js"></script>
 
         <script src="js/appmcc.js"></script>
         <script src="capas/publico.js"></script>
-
-
 
         <title>Visor de mapa Municipalidad de Corrientes</title>
 
@@ -226,26 +223,75 @@
             <span class="x-cierre"><a href="#" id="x-cierre-btn">x</a></span>
         </div>
 
-        <!-- Formularios -->
-        <div id="serpub" title="Servicios Publicos">
-            <div>Actualiza Servicio Publico</div>
-        </div>
-
         <!-- mensaje que no se encontro ningun elemento -->
         <div id="msg-no-encontre" title="Aviso!!!">
             <p>La busqueda no dió ningun resultado. <br /> Por favor, intente de nuevo con otra busqueda.</p>
         </div>
 
         <div id="dialogo1">
-            <p id="dlgTitulo">Titulo</p>
-            <div id="dlgCuerpo">Cuerpo</div>
+            <p id="dlgTitulo"></p>
+            <div id="dlgCuerpo"></div>
         </div>
+
+        <!-- barra lateral -->
+        <!--
+        <div class="barra-herramienta">
+            <div class="bh-iconos">
+                login
+            </div>
+        </div>
+        --> 
+
+        <div class="rounded barra-herramienta sombra-derecha">
+           <div class="bh-cuerpo">
+               <!-- <span >
+                   <img class="bh-imagen" src="images/usuario.svg" alt="Usuario" width="32" />
+               </span> -->
+               <!-- fas fa-user  -->
+               <button type="button" class="btn btn-primary px-3 py-2 sin-opacidad" data-toggle="modal" data-target="#modalLogin"><i class="fa fa-user" aria-hidden="true"></i></button>
+               <span id="lblUsuario">Usuario: </span>
+               <span id="nombreUsuario"></span>
+           </div>
+            
+        </div>
+
+        <!-- Modal de login -->
+        <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="logUsuario" class="col-form-label">Usuario:</label>
+                            <input type="text" class="form-control" id="logUsuario">
+                        </div>
+                        <div class="form-group">
+                            <label for="logClave" class="col-form-label">Contraseña:</label>
+                            <input type="password" class="form-control" id="logClave">
+                        </div>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" id="btnAceptar" class="btn btn-primary">Aceptar</button>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        
 
         <!-- Referencias -->
         <div class="ref-bacheo">
             <img src="images/ref/referencias-bacheo.png" alt="">
         </div>
-
     </body>
 </html>
-

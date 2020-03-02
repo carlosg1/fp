@@ -6,6 +6,7 @@
 //
 let map = undefined;
 let baseMap = undefined;
+let usuario = undefined;
 
 $(document).ready(function() {
 
@@ -48,6 +49,8 @@ $(document).ready(function() {
         map.attributionControl.getContainer().innerHTML = a + 'Coord.: [' + event.latlng.lat + ', ' + event.latlng.lng + ']';
 
     }, true);
+
+    
 
 });
 

@@ -8,6 +8,7 @@
  */
 
  let marcaTramo = undefined;
+ let latlon = undefined;
 
 function nvl(p) {
   
@@ -28,6 +29,15 @@ function formatoFecha(f){
 var wms_GIS = L.WMS.Source.extend({
 
     'showFeatureInfo': function(latlng, info) {
+
+        //verifica usuario
+        if(usuario == undefined){
+          alert('Debe ingresar con su usuario para poder editar el mapa.');
+          return false;
+        }
+
+        latlon = latlng;
+
         if (!this._map){
             return;
         }
@@ -39,22 +49,22 @@ var wms_GIS = L.WMS.Source.extend({
         var datos = JSON.parse(info);
 
         /* que layer */
-        var queLayer = datos.features[0].id.split('.');
+        //var queLayer = datos.features[0].gid.split('.');
 
-        var geomTramo = recuperaGeometriaIdTramo(datos.features[0].properties.gid);
+        //var geomTramo = recuperaGeometriaIdTramo(datos.features[0].properties.gid);
 
         /*
          * forever pipes
          */
 
-        if(queLayer[0] == "vw_ide_calle"){
-          datos1 = '<div style="width:409px;"><h2>Graba ubicaci&oacute;n Cami&oacute;n</h2></div>';
-          datos1 += '<div style="width:409px;">';
-          datos1 += '<div class="alert alert-primary" role="alert">';
-          datos1 += '  <b>ID:</b> ' + datos.features[0].properties['gid'];
-          datos1 += ' - <b>Calle: </b>' + datos.features[0].properties['NAM'];
-          datos1 += '</div>';
-          datos1 += '  <input id="divIdCalles" type="hidden" value="' + datos.features[0].properties['gid'] + '" />';
+        //if(queLayer[0] == "vw_plan_hidrico_ubicacion_camion"){
+          datos1 = '<div><h3>Graba ubicaci&oacute;n Cami&oacute;n</h3></div>';
+         //datos1 += '<div>';
+         // datos1 += '<div class="alert alert-primary" role="alert">';
+         // datos1 += '  <b>ID:</b> ' + datos.features[0].properties['gid'];
+         // datos1 += ' - <b>Calle: </b>' + datos.features[0].properties['NAM'];
+         // datos1 += '</div>';
+          //datos1 += '  <input id="divIdCalles" type="hidden" value="' + datos.features[0].properties['gid'] + '" />';
 
           // campo sobrestante
           datos1 += '  <div class="form-group style="padding: 7px 0px;">';
@@ -80,7 +90,7 @@ var wms_GIS = L.WMS.Source.extend({
           // campo avance
           datos1 += '<div class="form-group">';
           datos1 += '  <span><b>% avance:</b></span>';
-          datos1 += '  <input class="form-control" id="fecha_camion" type="number" value="0" min="0" max="100" placeholder="Ingrese un porcentaje" /> ';
+          datos1 += '  <input class="form-control" id="avance" type="number" value="0" min="0" max="100" placeholder="Ingrese un porcentaje" /> ';
           datos1 += '</div>';
 
           // campo observacion 
@@ -91,20 +101,22 @@ var wms_GIS = L.WMS.Source.extend({
 
           // boton Grabar
           datos1 += '  <div class="form-group">';
+          datos1 += '    <button class="btn btn-secondary mt-4" id="cancelaSerPub">Cancelar</button>';
           datos1 += '    <button class="btn btn-primary mt-4" id="grabaSerPub">Grabar</button>';
-          datos1 += '    <button class="btn btn-warning mt-4" id="cancelaSerPub">Cancelar</button>';
           datos1 += '  </div>';
 
-        }
+        //}
 
         // verifico si hay datos que mostrar
         if (datos1 != undefined) {
 
-          datos1 += '<div style="border-top: 1px solid #7f7f7f; padding-top: 7px; margin-top: 7px; font-family: Roboto; font-size: 11px; color: #7f7f7f; width: 430px;">DIR. GRAL. DE S.I.G.</div>';
+          datos1 += '<div style="border-top: 1px solid #7f7f7f; padding-top: 7px; margin-top: 7px; font-family: Roboto; font-size: 11px; color: #7f7f7f;">DIR. GRAL. DE S.I.G.</div>';
 
           this._map.openPopup(datos1, latlng, { 
             "closeButton": false,
-            "closeOnClick": false
+            "closeOnClick": false,
+            "minWidth": 365 /* ,
+            "maxHeight": 400 */
           });
 
           $("#grabaSerPub").click(function(e) { return grabaServicioPublico(e); });
@@ -146,18 +158,28 @@ var wms_GIS = L.WMS.Source.extend({
 
   function grabaServicioPublico(evt) {
 
-    var datos = 'idCalles='    +  $('#divIdCalles').val();
-    datos += '&actividad='     + $('#idActividad').val();
-    datos += '&actividadanio=' + $('#anioActividad').val();
-    datos += '&actividadmes='  + $('#mesActividad').val();
-    datos += '&actividaddia='  + $('#diaActividad').val();
-    datos += '&idSobrestante=' + $('#idSobrestante').val();
+    var datos = 'idCamion='  +  $('#idCamion').val();
+    datos += '&fechaCamion=' + $('#fecha_camion').val();
+    datos += '&avance='      + $('#avance').val();
+    datos += '&observacion=' + $('#observacion').val();
+    datos += '&lat='         + latlon.lat;
+    datos += '&lng='         + latlon.lng;
+
+    let iconoCamion = L.icon({
+      iconUrl: 'http://190.7.30.142/idemcc/images/icon/camion-fp128.png',
+      iconSize:     [57, 147], // size of the icon
+    })
 
     $.ajax({
       type: "POST",
-      url: 'graba_servicio_publico.php',
+      url: 'graba_camion.php',
       data: datos,
+      async: false, // La petición es síncrona
+      cache: false, // No queremos usar la caché del navegador
+      dataType: 'text',
+
       success: function(response){
+
         var resp = response.split('|');
 
         switch(resp[0]){
@@ -166,6 +188,8 @@ var wms_GIS = L.WMS.Source.extend({
             alert(resp[1]);
 
             $('.leaflet-popup').remove();
+
+            L.Marker(latlon).addTo(map);
 
           case 'error':
 
@@ -177,9 +201,19 @@ var wms_GIS = L.WMS.Source.extend({
 
             $('.leaflet-popup').remove();
 
+            // L.marker([latlon.lng, latlon.lat],{
+            //   icon: 'http://190.7.30.142/idemcc/images/icon/camion-fp128.png',
+            //   title: 'Ubicacion del camión'
+            // }).addTo(map);
+
+            var marcador = L.marker([latlon.lng, latlon.lat],{
+              icon: iconoCamion
+            });
+
+            map.addLayer(marcador);
+
         }
-      },
-      dataType: 'text'
+      }
     });
 
     return false;
