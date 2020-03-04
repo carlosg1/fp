@@ -233,21 +233,9 @@ mb_internal_encoding("UTF-8");
             <div id="dlgCuerpo"></div>
         </div>
 
-        <!-- barra lateral -->
-        <!--
-        <div class="barra-herramienta">
-            <div class="bh-iconos">
-                login
-            </div>
-        </div>
-        --> 
-
+        <!-- boton de login -->
         <div class="rounded barra-herramienta sombra-derecha">
            <div class="bh-cuerpo">
-               <!-- <span >
-                   <img class="bh-imagen" src="images/usuario.svg" alt="Usuario" width="32" />
-               </span> -->
-               <!-- fas fa-user  -->
                <button type="button" class="btn btn-primary px-3 py-2 sin-opacidad" data-toggle="modal" data-target="#modalLogin"><i class="fa fa-user" aria-hidden="true"></i></button>
                <span id="lblUsuario">Usuario: </span>
                <span id="nombreUsuario"></span>

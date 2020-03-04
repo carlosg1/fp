@@ -1,6 +1,6 @@
 /**
  * 
- * actualizado: 21/08/2019
+ * actualizado: 04/03/2020
  * Developer: Lic. Carlos Garcia
  * Contacto: carlosgctes@gmail.com
  *  
